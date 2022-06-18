@@ -9,6 +9,8 @@ function App() {
   Define state variables for 
   contacts and appointments 
   */
+  let contacts = [];
+  let appointment = [];
 
   const ROUTES = {
     CONTACTS: "/contacts",
@@ -19,6 +21,13 @@ function App() {
   Implement functions to add data to
   contacts and appointments
   */
+  const addNewContact = (contact) => {
+    if (!contacts.includes(contact.name)) {
+        return contacts.push(contact);
+    } else {
+      throw 'You already have a contact with this name.'; 
+    }
+  }
 
   return (
     <>
@@ -37,7 +46,7 @@ function App() {
           </Route>
           <Route path={ROUTES.CONTACTS}>
              {/* Add props to ContactsPage */}
-            <ContactsPage />
+            <ContactsPage contacts={contacts} handleSubmit={addNewContact}/>
           </Route>
           <Route path={ROUTES.APPOINTMENTS}>
             {/* Add props to AppointmentsPage */}
