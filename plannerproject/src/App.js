@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Redirect, NavLink } from "react-router-dom";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
@@ -9,8 +9,8 @@ function App() {
   Define state variables for 
   contacts and appointments 
   */
-  let contacts = [];
-  let appointment = [];
+  const [contacts, setContacts] = useState([{name:'John Doe', phone: '234-555-1234', email: 'johndoe@email.com'}]);
+  const [appointments, setAppointments] = useState([]); 
 
   const ROUTES = {
     CONTACTS: "/contacts",
@@ -22,11 +22,15 @@ function App() {
   contacts and appointments
   */
   const addNewContact = (contact) => {
-    if (!contacts.includes(contact.name)) {
-        return contacts.push(contact);
-    } else {
-      throw 'You already have a contact with this name.'; 
-    }
+    setContacts( 
+      [...contacts, contact]
+    )
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+    nameInput.value = '';
+    phoneInput.value = '';
+    emailInput.value = '';
   }
 
   return (
@@ -46,7 +50,7 @@ function App() {
           </Route>
           <Route path={ROUTES.CONTACTS}>
              {/* Add props to ContactsPage */}
-            <ContactsPage contacts={contacts} handleSubmit={addNewContact}/>
+            <ContactsPage contacts={contacts} addNewContact={addNewContact} />
           </Route>
           <Route path={ROUTES.APPOINTMENTS}>
             {/* Add props to AppointmentsPage */}
