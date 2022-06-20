@@ -9,8 +9,8 @@ function App() {
   Define state variables for 
   contacts and appointments 
   */
-  const [contacts, setContacts] = useState([{name:'John Doe', phone: '234-555-1234', email: 'johndoe@email.com'}, {name:'Joe Dirt', phone: '234-555-4321', email: 'joedirt@email.com'} ]);
-  const [appointments, setAppointments] = useState([{title: 'Jump rope', contact: 'John Doe', date: '03/21/23', time: '1:00pm'}, {title: 'Set things on fire', contact: 'Joe Dirt', date: '08/15/2024', time: '1:30am'}]); 
+  const [contacts, setContacts] = useState([]);
+  const [appointments, setAppointments] = useState([]); 
 
   const ROUTES = {
     CONTACTS: "/contacts",

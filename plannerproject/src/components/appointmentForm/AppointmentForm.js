@@ -46,17 +46,10 @@ export const AppointmentForm = ({
         value={time}
         onChange={(e) => setTime(e.target.value)} />
       </label>
-      <ContactPicker key='contactPicker' contacts={contacts} setContact={setContact} />   
+      <label> Contact:
+        <ContactPicker key='contactPicker' contacts={contacts} setContact={setContact} />   
+      </label>
       <input type='submit' value='submit' />
     </form>
   );
 };
-
-const getTodayString = () => {
-  const [month, day, year] = new Date()
-    .toLocaleDateString("en-US")
-    .split("/");
-  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-};
-
-console.log(getTodayString())
