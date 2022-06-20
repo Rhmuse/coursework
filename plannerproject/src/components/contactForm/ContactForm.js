@@ -24,7 +24,7 @@ export const ContactForm = ({
           type='text' 
           name='phone' 
           id='phone'
-          pattern='^[2-9]\d{2}\d{3}\d{4}$' 
+          pattern='^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$' 
           value={phone}
           onChange={(e) => setPhone(e.target.value)} /> 
       </label>
@@ -33,7 +33,7 @@ export const ContactForm = ({
           type='text' 
           name='email'
           id='email'
-          pattern='^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$' 
+          pattern='^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$' 
           value={email}
           onChange={(e) => setEmail(e.target.value)} /> 
       </label> 

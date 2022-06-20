@@ -1,5 +1,6 @@
 import  React, { useEffect, useState } from "react";
 import { ContactForm } from '../../components/contactForm/ContactForm';
+import { TileList } from '../../components/tileList/TileList';
 
 export const ContactsPage = (props) => {
   /*
@@ -11,7 +12,7 @@ export const ContactsPage = (props) => {
   const [email, setEmail] = useState('');
   const [isDuplicate, setIsDuplicate] = useState(false); 
 
-  
+   
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,11 +21,21 @@ export const ContactsPage = (props) => {
     if the contact name is not a duplicate
     */
     if (!isDuplicate) {
+      const nameInput = document.getElementById('name');
+      const phoneInput = document.getElementById('phone');
+      const emailInput = document.getElementById('email');
+
       props.addNewContact({
         name: name,
         phone: phone,
         email: email
       });
+      nameInput.value = '';
+      phoneInput.value = '';
+      emailInput.value = '';
+      setName('');
+      setEmail('');
+      setPhone('');
     } else {
       throw new Error('You already have a contact with this name.')
     }
@@ -36,7 +47,7 @@ export const ContactsPage = (props) => {
   */
 
   useEffect(() => {
-    if (props.contacts.some(o => o.name == name)) {
+    if (props.contacts.some(o => o.name === name)) {
       const nameInput = document.getElementById('name');
       setIsDuplicate(true);
       nameInput.setCustomValidity('You already have a contact with this name.')
@@ -44,7 +55,9 @@ export const ContactsPage = (props) => {
     return () => {
       const nameInput = document.getElementById('name');
       setIsDuplicate(false);
+      if(nameInput) {
       nameInput.setCustomValidity('');
+      }
     }
   }, [props.contacts, name, email, phone])
 
@@ -61,6 +74,7 @@ export const ContactsPage = (props) => {
       <hr />
       <section>
         <h2>Contacts</h2>
+        <TileList arr={props.contacts} />
       </section>
     </div>
   );
