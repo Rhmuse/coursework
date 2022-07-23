@@ -2,14 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const options = {
     name: 'topics',
-    initialState: { topics: {
-        '123': {
-            id: '123',
-            name: 'example topic',
-            icon: 'icon url',
-            quizIds: ['456']
-        }
-    }},
+    initialState: { topics: { }},
     reducers: {
         addTopic(state, action) {
             return {...state, 
