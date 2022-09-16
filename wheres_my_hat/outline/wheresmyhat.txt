@@ -1,0 +1,38 @@
+Class: Field
+    --constructor Array: field
+        --Array of arrays. The index of the inner arrays represents the x-axis 
+          and the index of the characters within each array represent the y-axis. 
+    --method to turn the field array into string that will print to the console.
+    
+
+Class: Character
+
+    Sub-Class Hazard
+        --constructor displayCharacter
+        --method to kill the Player
+        --default returns a "0"
+
+        Sub-Class Hole
+            props.super
+        --returns a "0"
+
+    Sub-Class Player
+        --returns a "*"
+
+    Sub-Class Hat
+        --method to declare victory 
+
+    Sub-Class Field-Character
+        --returns "░"
+
+Class: Move
+    --methods to move N, E, S, and W. 
+
+Class: Start
+    --method to prompt to Start.
+    --method to start the run loop.
+
+Class: run
+    --run the game loop till the player wins or diesl
+
+    
