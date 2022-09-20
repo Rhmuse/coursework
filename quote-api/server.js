@@ -17,8 +17,13 @@ quoteAPI.use((req, res, next) => {
   next();
 });
 
-quoteAPI.get("/", (req, res, next) => {
+quoteAPI.get("/", (req, res) => {
   res.send(quotes);
+});
+
+quoteAPI.get("/random", (req, res) => {
+  const randomQuote = getRandomElement(quotes);
+  res.send({ quote: randomQuote });
 });
 
 app.listen(PORT, () => {
