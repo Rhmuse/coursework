@@ -18,12 +18,39 @@ quoteAPI.use((req, res, next) => {
 });
 
 quoteAPI.get("/", (req, res) => {
-  res.send(quotes);
+  const authorName = req.query.person;
+  if (authorName) {
+    let quoteArr = quotes.filter(
+      (quote) => quote.person.toLowerCase() === authorName.toLowerCase()
+    );
+    if (quoteArr.length > 0) {
+      res.send({ quotes: quoteArr });
+    } else {
+      res.send({ quotes: quotes });
+    }
+  } else {
+    res.send({ quotes: quotes });
+  }
 });
 
 quoteAPI.get("/random", (req, res) => {
   const randomQuote = getRandomElement(quotes);
   res.send({ quote: randomQuote });
+});
+
+quoteAPI.post("/", (req, res) => {
+  const quote = req.query.quote;
+  const person = req.query.person;
+  if (quote && person) {
+    const formatedQuote = {
+      quote: quote,
+      person: person,
+    };
+    quotes.push(formatedQuote);
+    res.send({ quote: formatedQuote });
+  } else {
+    res.status(400).send();
+  }
 });
 
 app.listen(PORT, () => {
