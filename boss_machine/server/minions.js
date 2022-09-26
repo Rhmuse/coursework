@@ -8,6 +8,16 @@ const {
 	deleteFromDatabasebyId,
 } = require('./db');
 
+//Normalizing Middleware
+const normalizeInput = (req, res, next) => {
+	const minionId = req.params.minionId;
+	if (typeof minionId !== 'number') {
+		Number(minionId);
+	}
+	req.minionId = minionId;
+	next();
+};
+
 minionsRouter.use('/', (req, res, next) => {
 	console.log('minionsRouter accessed at ', Date.now());
 	next();
@@ -18,15 +28,17 @@ minionsRouter.get('/', (req, res, next) => {
 	res.send(allMinions);
 });
 
-minionsRouter.post('/', (req, res, next) => {
+minionsRouter.post('/', normalizeInput, (req, res, next) => {
 	const newMinion = req.body;
 	addToDatabase('minions', minion);
-	res.send(newMinion);
+	res.status(201).send(newMinion);
 });
 
 minionsRouter.get('/:minionId', (req, res, next) => {
-	const minionId = req.params.minionId;
-	const requestedMinion = getFromDatabaseById('minions', minionId);
+	const requestedMinion = getFromDatabaseById('minions', req.minionId);
+	if (!requestedMinion) {
+		res.status(404).send();
+	}
 	res.send(requestedMinion);
 });
 
@@ -36,9 +48,9 @@ minionsRouter.put('/:minionId', (req, res, next) => {
 	res.status(200).send(updatedMinion);
 });
 
-minionsRouter.delete('/:minionId', (req, res, next) => {
-	const minionId = req.params.minionId;
-	const deletedMinion = deleteFromDatabasebyId('minions', minionId);
-	res.send(deletedMinion);
+minionsRouter.delete('/:minionId', normalizeInput, (req, res, next) => {
+	const deletedMinion = deleteFromDatabasebyId('minions', req.minionId);
+	res.status(204).send(deletedMinion);
 });
+
 module.exports = minionsRouter;
