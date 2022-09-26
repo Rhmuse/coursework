@@ -5,18 +5,16 @@ const {
   addToDatabase,
   getFromDatabaseById,
   updateInstanceInDatabase,
-  deleteAllFromDatabase,
   deleteFromDatabasebyId,
 } = require("./db");
 
-let allMinions = getAllFromDatabase("minions");
-
 minionsRouter.use("/", (req, res, next) => {
-  console.log("minionsRoute accessed at ", Date.now());
+  console.log("minionsRouter accessed at ", Date.now());
   next();
 });
 
 minionsRouter.get("/", (req, res, next) => {
+  const allMinions = getAllFromDatabase("minions");
   res.send(allMinions);
 });
 
